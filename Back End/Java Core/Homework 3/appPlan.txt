@@ -1,0 +1,34 @@
+Salary exercise
+
+
+Intefaces:
+
+Employee:
+	- getSalary() -> to compute salary of an individual employee
+	- getName() -> to be able to search an employee by name in the employee list
+
+
+Classes:
+
+Manager:
+	- name, salary
+	- subordinates (ArrayList<Employee>)
+Seller:
+	- name, salary
+	- amountOfItemsSold, sellPrice
+Technician:
+	- name, salary
+
+CompanyManager:
+	- stores all the employees objects into an ArrayList
+	- can return specific employee objects by name
+	- can return all employees at once
+
+Packages:
+
+com.crystal.
+	employees
+	run
+	company
+	
+
