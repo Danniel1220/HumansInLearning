@@ -20,10 +20,10 @@ public class KalahTable {
     InputManager input = new InputManager();
 
     // setups the table for a game to start, fills all of the cups with 4 stones
-    public void setupTable() {
+    public void setupTable(int amountOfStones) {
         // Arrays.fill(kalahCups, 4);
         for(int i = 0; i < 2; i++)
-            for(int j = 0; j < 6; j++) kalahCups[i][j] = 4;
+            for(int j = 0; j < 6; j++) kalahCups[i][j] = amountOfStones;
     }
 
     public void game() {
