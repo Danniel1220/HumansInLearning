@@ -23,10 +23,7 @@ public class VendingMachine {
 
             return coinArr;
         }
-        else {
-
-        }
-
+        return null;
     }
 }
 
