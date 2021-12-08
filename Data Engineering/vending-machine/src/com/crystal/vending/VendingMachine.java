@@ -1,29 +1,34 @@
 package com.crystal.vending;
 
+import java.util.Arrays;
+
 public class VendingMachine {
-    public int[] getChange(float inputValue, float price) {
-        if (inputValue >= price) {
+    public int[] getChange(float inputValue, float price, int[] coinValues) {
+            // Input values are multiplied by 100 to avoid decimal shenanigans.
             inputValue *= 100;
             price *= 100;
 
-            int[] coinArr = new int[6];
+            // Create an array of same length as the input array with coin types for change.
+            int[] changeArr = new int[coinValues.length];
+
+            // Compute change.
             int change = (int)(inputValue - price);
 
-            coinArr[5] = change / 100;
-            change = change - coinArr[5]*100;
-            coinArr[4] = (change / 50);
-            change = change - coinArr[4]*50;
-            coinArr[3] = (change / 25);
-            change = change - coinArr[3]*25;
-            coinArr[2] = (change / 10);
-            change = change - coinArr[2]*10;
-            coinArr[1] = (change / 5);
-            change = change - coinArr[1]*5;
-            coinArr[0] = (change / 1);
+            // Sort the array, in case coin types given are not in order.
+            Arrays.sort(coinValues);
 
-            return coinArr;
-        }
-        return null;
+            // Iterate through all the coin types in descending value order.
+            for(int i = coinValues.length - 1; i >= 0; i--) {
+                // Compute amount change given of the current coin type in the iteration.
+                changeArr[i] = computeCoinChange(coinValues[i], change);
+                // Update the change to subtract the value given as change already.
+                change = change - changeArr[i]*coinValues[i];
+            }
+            return changeArr;
+    }
+
+    public int computeCoinChange(int coinValue, int remainingChange) {
+        return remainingChange / coinValue;
     }
 }
 
