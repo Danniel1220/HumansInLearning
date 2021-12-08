@@ -14,6 +14,6 @@
 *.rar
 
 # IntelliJ Files
-.idea/*
+.idea/
 *.iml
 out/*
