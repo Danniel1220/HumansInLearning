@@ -2,7 +2,10 @@ package com.crystal.employees;
 
 import java.util.ArrayList;
 
-public interface Employee {
-    float getSalary();
-    String getName();
+public abstract class Employee {
+    String name;
+    float salary;
+
+    public abstract float calculateSalary();
+    public abstract String getName();
 }

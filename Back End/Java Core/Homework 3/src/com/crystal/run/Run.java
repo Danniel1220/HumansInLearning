@@ -26,7 +26,7 @@ public class Run {
         ))));
 
         for (Employee e : company.getEmployeeList()) {
-            System.out.println(e.getName() + "'s salary is " + e.getSalary());
+            System.out.println(e.getName() + "'s salary is " + e.calculateSalary());
         }
     }
 }

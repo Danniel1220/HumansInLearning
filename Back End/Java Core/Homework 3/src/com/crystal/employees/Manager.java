@@ -2,9 +2,7 @@ package com.crystal.employees;
 
 import java.util.ArrayList;
 
-public class Manager implements Employee {
-    private String name;
-    private float salary;
+public class Manager extends Employee {
     private ArrayList<Employee> subordinates = new ArrayList<>();
 
     public Manager(String name, float salary, ArrayList<Employee> subordinates) {
@@ -13,17 +11,15 @@ public class Manager implements Employee {
         this.subordinates = subordinates;
     }
 
-    @Override
-    public float getSalary() {
+    public float calculateSalary() {
         float subordinatesSalaryBonus = 0;
         for (Employee e : subordinates) {
-            subordinatesSalaryBonus = subordinatesSalaryBonus + e.getSalary();
+            subordinatesSalaryBonus = subordinatesSalaryBonus + e.calculateSalary();
         }
         subordinatesSalaryBonus = subordinatesSalaryBonus / 200;
         return salary + subordinatesSalaryBonus;
     }
 
-    @Override
     public String getName() {
         return this.name;
     }

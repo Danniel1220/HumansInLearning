@@ -2,9 +2,7 @@ package com.crystal.employees;
 
 import java.util.Map;
 
-public class Seller implements Employee {
-    private String name;
-    private float salary;
+public class Seller extends Employee {
     private int amountOfItemsSold;
     private int sellingPrice;
 
@@ -15,12 +13,10 @@ public class Seller implements Employee {
         this.sellingPrice = sellingPrice;
     }
 
-    @Override
-    public float getSalary() {
+    public float calculateSalary() {
         return salary + ((amountOfItemsSold * sellingPrice) / 10);
     }
 
-    @Override
     public String getName() {
         return this.name;
     }
