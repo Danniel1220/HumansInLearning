@@ -1,0 +1,25 @@
+{
+  "discs": [
+    {
+      "title": "Iron Man",
+      "category": "Action/Adventure",
+      "cost": 15.76,
+      "director": "Jon Favreau",
+      "length": 126
+    },
+    {
+      "title": "Klaus",
+      "category": "Kids/Comedy",
+      "cost": 12.20,
+      "director": "Sergio Pablos",
+      "length": 97
+    },
+    {
+      "title": "The Martian",
+      "category": "SF/Drama",
+      "cost": 14.99,
+      "director": "Ridley Scott",
+      "length": 144
+    }
+  ]
+}
