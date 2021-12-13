@@ -1,18 +1,19 @@
 package com.crystal.media;
 
-import com.crystal.disc.DigitalVideoDisc;
+import com.crystal.dao.DigitalVideoDisc;
+import com.crystal.dao.Media;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Order {
-    private List<DigitalVideoDisc> orderArr = new ArrayList<DigitalVideoDisc>();
+    private List<Media> orderArr = new ArrayList<Media>();
 
-    public void addToOrder(DigitalVideoDisc disc) {
-        orderArr.add(disc);
+    public void addMedia(Media mediaItem) {
+        orderArr.add(mediaItem);
     }
 
-    public List<DigitalVideoDisc> getOrderArr() {
+    public List<Media> getOrderArr() {
         return orderArr;
     }
 }

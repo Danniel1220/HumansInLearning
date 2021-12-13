@@ -1,7 +1,8 @@
 package com.crystal.media;
 
 
-import com.crystal.disc.DigitalVideoDisc;
+import com.crystal.dao.DigitalVideoDisc;
+import com.crystal.dao.Media;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.*;
@@ -34,12 +35,12 @@ public class OnlineMedia {
                     (double) arrayElement.get("length")
             );
 
-            order.addToOrder(dvd);
+            order.addMedia(dvd);
         }
 
         // Iterate through order and print all discs in it.
-        for (DigitalVideoDisc disc : order.getOrderArr()) {
-            System.out.println(disc);
+        for (Media m : order.getOrderArr()) {
+            System.out.println(m);
         }
     }
 }
