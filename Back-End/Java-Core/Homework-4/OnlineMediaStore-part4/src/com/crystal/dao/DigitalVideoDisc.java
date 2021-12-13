@@ -19,7 +19,6 @@ public class DigitalVideoDisc extends Media {
     }
 
     public String toString() {
-        return "Title: " + super.getTitle() + "\nCategory: " + super.getCategory() + "\nCost: " + super.getCost() +
-                "\nDirector: " + this.director + "\nLength: " + this.length + "\n\n";
+        return super.toString() + "\nDirector: " + this.director + "\nLength: " + this.length + "\n";
     }
 }

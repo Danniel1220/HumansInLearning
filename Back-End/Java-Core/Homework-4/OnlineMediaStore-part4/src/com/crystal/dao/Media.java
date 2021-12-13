@@ -22,4 +22,8 @@ public class Media {
     public double getCost() {
         return cost;
     }
+
+    public String toString() {
+        return "Title: " + getTitle() + "\nCategory: " + getCategory() + "\nCost: " + getCost();
+    }
 }

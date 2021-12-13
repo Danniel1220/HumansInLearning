@@ -1,13 +1,17 @@
 package com.crystal.media;
 
 
+import com.crystal.dao.CompactDisc;
 import com.crystal.dao.DigitalVideoDisc;
 import com.crystal.dao.Media;
+import com.crystal.dao.Track;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.*;
 
 import java.io.FileReader;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 public class OnlineMedia {
     public static void main(String[] args) throws Exception {
@@ -17,30 +21,56 @@ public class OnlineMedia {
         // Object with everything in the file.
         JSONObject jsonFileObject = (JSONObject) jsonFile;
 
-        // Object containing just the discs.
-        JSONArray jsonDiscsArray = (JSONArray) jsonFileObject.get("discs");
+        // Object containing just the discs/tracks.
+        JSONArray jsonDVDsArray = (JSONArray) jsonFileObject.get("dvds");
+        JSONArray jsonCDsArray = (JSONArray) jsonFileObject.get("cds");
 
         // Create the order.
         Order order = new Order();
 
-        // Iterate through the JSON array and add all the dvds inside to the order.
-        for (Object o : jsonDiscsArray) {
-            JSONObject arrayElement = (JSONObject) o;
+        // Iterate the DVD array, create and add DVDs to order.
+        for (Object o : jsonDVDsArray) {
+            JSONObject dvdInArray = (JSONObject) o;
 
             DigitalVideoDisc dvd = new DigitalVideoDisc(
-                    (String) arrayElement.get("title"),
-                    (String) arrayElement.get("category"),
-                    (double) arrayElement.get("cost"),
-                    (String) arrayElement.get("director"),
-                    (double) arrayElement.get("length")
+                    (String) dvdInArray.get("title"),
+                    (String) dvdInArray.get("category"),
+                    (double) dvdInArray.get("cost"),
+                    (String) dvdInArray.get("director"),
+                    (double) dvdInArray.get("length")
             );
 
             order.addMedia(dvd);
         }
 
-        // Iterate through order and print all discs in it.
+        // Iterate the CD array, create and add CDs to order.
+        for (Object o : jsonCDsArray) {
+            JSONObject cdInArray = (JSONObject) o;
+
+            // Get track list from cd.
+            ArrayList<Track> tracks = new ArrayList<Track>();
+            JSONArray tracksArray = (JSONArray) cdInArray.get("tracks");
+            for (Object t : tracksArray) {
+                JSONObject trackInArray = (JSONObject) t;
+                Track track = new Track((String) trackInArray.get("title"), (long) trackInArray.get("length"));
+                tracks.add(track);
+            }
+
+            CompactDisc cd = new CompactDisc(
+                    (String) cdInArray.get("title"),
+                    (String) cdInArray.get("category"),
+                    (double) cdInArray.get("cost"),
+                    (String) cdInArray.get("artist"),
+                    tracks
+            );
+
+            order.addMedia(cd);
+        }
+
+        // Iterate through order and print everything in it.
         for (Media m : order.getOrderArr()) {
             System.out.println(m);
+            System.out.println();
         }
     }
 }
