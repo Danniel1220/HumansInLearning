@@ -11,7 +11,7 @@ import java.io.FileReader;
 public class OnlineMedia {
     public static void main(String[] args) throws Exception {
         // Read JSON file.
-        Object jsonFile = new JSONParser().parse(new FileReader("media.properties"));
+        Object jsonFile = new JSONParser().parse(new FileReader("media.json"));
 
         // Object with everything in the file.
         JSONObject jsonFileObject = (JSONObject) jsonFile;
@@ -23,8 +23,8 @@ public class OnlineMedia {
         Order order = new Order();
 
         // Iterate through the JSON array and add all the dvds inside to the order.
-        for(int i = 0; i<jsonDiscsArray.size(); i++) {
-            JSONObject arrayElement = (JSONObject) jsonDiscsArray.get(i);
+        for (Object o : jsonDiscsArray) {
+            JSONObject arrayElement = (JSONObject) o;
 
             DigitalVideoDisc dvd = new DigitalVideoDisc(
                     (String) arrayElement.get("title"),
