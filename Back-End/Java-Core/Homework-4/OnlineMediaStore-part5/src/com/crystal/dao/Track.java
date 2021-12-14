@@ -1,6 +1,6 @@
 package com.crystal.dao;
 
-public class Track {
+public class Track implements Playable {
     private final String title;
     private final long length;
 
@@ -19,5 +19,9 @@ public class Track {
 
     public String toString() {
         return "Title: " + this.title + " | Length: " + this.length;
+    }
+
+    public void play() {
+        System.out.println("Track " + this.title + " plays!");
     }
 }

@@ -1,6 +1,6 @@
 package com.crystal.dao;
 
-public class DigitalVideoDisc extends Media {
+public class DigitalVideoDisc extends Media implements Playable {
     private final String director;
     private final double length;
 
@@ -20,5 +20,9 @@ public class DigitalVideoDisc extends Media {
 
     public String toString() {
         return super.toString() + "\nDirector: " + this.director + "\nLength: " + this.length + "\n";
+    }
+
+    public void play() {
+        System.out.println("Movie " + super.getTitle() + " plays!");
     }
 }

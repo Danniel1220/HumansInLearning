@@ -40,6 +40,7 @@ public class OnlineMedia {
                     (double) dvdInArray.get("length")
             );
 
+            dvd.play();
             order.addMedia(dvd);
         }
 
@@ -53,6 +54,8 @@ public class OnlineMedia {
             for (Object t : tracksArray) {
                 JSONObject trackInArray = (JSONObject) t;
                 Track track = new Track((String) trackInArray.get("title"), (long) trackInArray.get("length"));
+
+                track.play();
                 tracks.add(track);
             }
 
@@ -64,8 +67,11 @@ public class OnlineMedia {
                     tracks
             );
 
+            cd.play();
             order.addMedia(cd);
         }
+
+        System.out.println();
 
         // Iterate through order and print everything in it.
         for (Media m : order.getOrderArr()) {
