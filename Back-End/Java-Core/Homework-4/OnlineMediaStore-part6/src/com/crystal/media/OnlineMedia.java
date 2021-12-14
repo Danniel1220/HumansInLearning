@@ -12,6 +12,8 @@ import org.json.simple.parser.*;
 import java.io.FileReader;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class OnlineMedia {
     public static void main(String[] args) throws Exception {
@@ -78,5 +80,11 @@ public class OnlineMedia {
             System.out.println(m);
             System.out.println();
         }
+
+        // Sort the tracks from the CD since it implements Comparable.
+        CompactDisc cd = (CompactDisc) order.getOrderArr().get(3);
+        System.out.println(cd.getTracks());
+        Collections.sort(cd.getTracks());
+        System.out.println(cd.getTracks());
     }
 }
