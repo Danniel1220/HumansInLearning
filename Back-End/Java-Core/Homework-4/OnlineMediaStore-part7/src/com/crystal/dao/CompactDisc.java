@@ -12,6 +12,12 @@ public class CompactDisc extends Media implements Playable {
         this.tracks = tracks;
     }
 
+    public CompactDisc (CompactDisc cd) {
+        super(cd.getTitle(), cd.getCategory(), cd.getCost());
+        this.artist = cd.getArtist();
+        this.tracks = cd.getTracks();
+    }
+
     public String getArtist() {
         return artist;
     }
