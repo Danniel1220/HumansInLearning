@@ -1,6 +1,8 @@
 package com.crystal.dao;
 
-public class Media {
+import java.io.Serializable;
+
+public class Media implements Serializable {
     private final String title;
     private final String category;
     private final double cost;

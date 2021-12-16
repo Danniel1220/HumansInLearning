@@ -4,19 +4,17 @@ package com.crystal.media;
 import com.crystal.dao.*;
 import com.crystal.exceptions.PlayerException;
 import com.crystal.io.DataFromProperties;
-import com.sun.org.apache.xpath.internal.operations.Or;
+import com.crystal.io.OrderSaver;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import org.json.simple.parser.*;
 
-import java.io.FileReader;
-import java.lang.reflect.Array;
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 
 public class OnlineMedia {
     public static void main(String[] args) {
+        // DataFromProperties object to handle the JSON data.
         DataFromProperties dataManager = new DataFromProperties();
         JSONObject jsonFileData = dataManager.retrieveJSONData("media.json");
 
@@ -32,6 +30,7 @@ public class OnlineMedia {
         addCDsToOrder(jsonCDsArray, order);
 
         // Sort the tracks from the CD since it implements Comparable.
+        System.out.println("------------------------\n");
         System.out.println("Sorting tracks:");
         sortCDs(((CompactDisc) order.getOrderArr().get(3)).getTracks());
 
@@ -39,14 +38,43 @@ public class OnlineMedia {
         // Create a new copy of the tracks array inside the CD.
         processAndAddCDUsingLibrary(order);
 
+        // Printing order after we are done adding to it / processing it.
+        System.out.println("\n------------------------\n");
+        System.out.println("Printing order:\n");
         printOrder(order);
+
+        // Serialize and deserialize order.
+        try {
+            serializeOrder(order, "order.txt");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        Order deserializedOrder = deSerializeOrder("order.txt");
+        System.out.println("------------------------\n");
+        System.out.println("DESERIALIZED ORDER:");
+        printOrder(deserializedOrder);
+    }
+
+    private static Order deSerializeOrder(String orderPath) {
+        Order deSerializedOrder;
+        try {
+            deSerializedOrder = OrderSaver.restoreOrder(orderPath);
+            return deSerializedOrder;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    private static void serializeOrder(Order order, String orderPath) throws IOException {
+        OrderSaver.saveOrder(order, orderPath);
     }
 
     private static void printOrder(Order order) {
         // Iterate through order and print everything in it.
         for (Media m : order.getOrderArr()) {
             System.out.println(m);
-            System.out.println();
         }
     }
 
@@ -72,7 +100,7 @@ public class OnlineMedia {
     private static void sortCDs(ArrayList<Track> trackArrayList) {
         System.out.println(trackArrayList);
         Collections.sort(trackArrayList);
-        System.out.println(trackArrayList + "\n");
+        System.out.println(trackArrayList);
     }
 
     private static void addDVDsToOrder(JSONArray mediaArray, Order order) {
@@ -95,9 +123,6 @@ public class OnlineMedia {
             }
             order.addMedia(dvd);
         }
-
-
-        System.out.println();
     }
 
     private static void addCDsToOrder(JSONArray mediaArray, Order order) {

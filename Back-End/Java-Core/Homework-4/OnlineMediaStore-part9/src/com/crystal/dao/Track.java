@@ -2,7 +2,9 @@ package com.crystal.dao;
 
 import com.crystal.exceptions.PlayerException;
 
-public class Track implements Playable, Comparable<Track> {
+import java.io.Serializable;
+
+public class Track implements Playable, Comparable<Track>, Serializable {
     private final String title;
     private final float length;
 
