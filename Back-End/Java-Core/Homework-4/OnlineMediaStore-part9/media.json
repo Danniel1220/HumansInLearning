@@ -1,0 +1,47 @@
+{
+  "dvds": [
+    {
+      "title": "Iron Man",
+      "category": "Action/Adventure",
+      "cost": 15.76,
+      "director": "Jon Favreau",
+      "length": 126.0
+    },
+    {
+      "title": "Klaus",
+      "category": "Kids/Comedy",
+      "cost": 12.20,
+      "director": "Sergio Pablos",
+      "length": 97.0
+    },
+    {
+      "title": "The Martian",
+      "category": "SF/Drama",
+      "cost": 14.99,
+      "director": "Ridley Scott",
+      "length": 144.0
+    }
+  ],
+  "cds": [
+    {
+      "title": "Rock Music",
+      "artist": "Various Artists",
+      "category": "Rock",
+      "cost": 12.0,
+      "tracks": [
+        {
+          "title": "ALESTI - House of Glass",
+          "length": 192
+        },
+        {
+          "title": "Citizen Soldier - Gunshot Lullabies",
+          "length": 225
+        },
+        {
+          "title": "From Fall to Spring - Disconnected",
+          "length": 202
+        }
+        ]
+    }
+  ]
+}
