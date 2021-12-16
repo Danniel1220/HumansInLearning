@@ -2,11 +2,13 @@ package com.crystal.media;
 
 
 import com.crystal.dao.*;
+import com.crystal.exceptions.PlayerException;
 import com.crystal.io.DataFromProperties;
 import com.sun.org.apache.xpath.internal.operations.Or;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.*;
+
 import java.io.FileReader;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -86,7 +88,11 @@ public class OnlineMedia {
                     (double) dvdInArray.get("length")
             );
 
-            dvd.play();
+            try {
+                dvd.play();
+            } catch (PlayerException e) {
+                e.printStackTrace();
+            }
             order.addMedia(dvd);
         }
 
@@ -106,7 +112,11 @@ public class OnlineMedia {
                 JSONObject trackInArray = (JSONObject) t;
                 Track track = new Track((String) trackInArray.get("title"), (long) trackInArray.get("length"));
 
-                track.play();
+                try {
+                    track.play();
+                } catch (PlayerException e) {
+                    e.printStackTrace();
+                }
                 tracks.add(track);
             }
 

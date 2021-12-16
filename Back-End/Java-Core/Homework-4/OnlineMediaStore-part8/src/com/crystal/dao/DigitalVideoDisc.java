@@ -1,5 +1,7 @@
 package com.crystal.dao;
 
+import com.crystal.exceptions.PlayerException;
+
 public class DigitalVideoDisc extends Media implements Playable {
     private final String director;
     private final double length;
@@ -22,7 +24,13 @@ public class DigitalVideoDisc extends Media implements Playable {
         return super.toString() + "\nDirector: " + this.director + "\nLength: " + this.length + "\n";
     }
 
-    public void play() {
-        System.out.println("Movie " + super.getTitle() + " plays!");
+    public void play() throws PlayerException {
+        if (length > 0) {
+            System.out.println("Movie " + super.getTitle() + " plays!");
+        }
+        else {
+            System.out.printf("Could not play track %s.\n", super.getTitle());
+            throw new PlayerException();
+        }
     }
 }

@@ -1,5 +1,7 @@
 package com.crystal.dao;
 
+import com.crystal.exceptions.PlayerException;
+
 public class Track implements Playable, Comparable<Track> {
     private final String title;
     private final float length;
@@ -21,8 +23,14 @@ public class Track implements Playable, Comparable<Track> {
         return "Title: " + this.title + " | Length: " + this.length;
     }
 
-    public void play() {
-        System.out.println("Track " + this.title + " plays!");
+    public void play() throws PlayerException {
+        if (length > 0) {
+            System.out.println("Track " + this.title + " plays!");
+        }
+        else {
+            System.out.printf("Could not play track %s.\n", this.title);
+            throw new PlayerException();
+        }
     }
 
     @Override
