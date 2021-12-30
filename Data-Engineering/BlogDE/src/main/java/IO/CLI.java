@@ -36,6 +36,7 @@ public class CLI {
             // Default for an empty JSON array is '[]', string is defaulted to this because we check if it is empty
             // later, in case we failed to write to it.
             String json = "[]";
+            String inputPath;
 
             switch (input) {
                 case "selectall":
@@ -47,7 +48,22 @@ public class CLI {
                         System.out.println("Could not fetch articles table...");
                         e.printStackTrace();
                     }
-                    jsonOutputManager.writeToFile("src/main/resources/output.json", json);
+
+                    // Get another input from user to get a path to write to.
+                    System.out.println("Please input a file path to write the file to " +
+                            "(no input for the default resources folder, or a simple name for the root" +
+                            "directory of the project):");
+                    inputPath = getStringInput();
+
+                    // If the user simply presses enter we default to the resources folder.
+                    if (inputPath.equals("")) {
+                        jsonOutputManager.writeToFile("src/main/resources/output.json", json);
+                    }
+                    // Else we write to the specified path.
+                    else {
+                        jsonOutputManager.writeToFile(inputPath, json);
+                    }
+
                     System.out.println();
                     break;
 
@@ -67,7 +83,21 @@ public class CLI {
                         System.out.println("No entry exists with specified id.");
                     }
                     else {
-                        jsonOutputManager.writeToFile("src/main/resources/output.json", json);
+                        // Get another input from user to get a path to write to.
+                        System.out.println("Please input a file path to write the file to " +
+                                "(no input for the default resources folder, or a simple name for the root" +
+                                "directory of the project):");
+                        inputPath = getStringInput();
+
+                        // If the user simply presses enter we default to the resources folder.
+                        if (inputPath.equals("")) {
+                            jsonOutputManager.writeToFile("src/main/resources/output.json", json);
+                        }
+                        // Else we write to the specified path.
+                        else {
+                            jsonOutputManager.writeToFile(inputPath, json);
+                        }
+
                     }
 
                     System.out.println();
@@ -87,18 +117,14 @@ public class CLI {
     private int getIntInput() {
         Scanner reader = new Scanner(System.in);  // Reading from System.in
         System.out.print("> ");
-        int input = reader.nextInt();
         //reader.close();
-
-        return input;
+        return reader.nextInt();
     }
 
     private String getStringInput() {
         Scanner reader = new Scanner(System.in);  // Reading from System.in
         System.out.print("> ");
-        String input = reader.nextLine();
         //reader.close();
-
-        return input;
+        return reader.nextLine();
     }
 }
