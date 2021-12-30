@@ -5,14 +5,21 @@ import IO.CLI;
 import java.sql.*;
 
 public class Run {
-    public static void main(String[] args) {
-        final String DATABASE_CONNECT_URL = "jdbc:mysql://localhost:3306/blogdb";
-        final String DATABASE_USER = "root";
-        final String DATABASE_PASSWORD = "rootpassword";
+    final static String DATABASE_CONNECT_URL = "jdbc:mysql://localhost:3306/blogdb";
+    final static String DATABASE_USER = "root";
+    final static String DATABASE_PASSWORD = "rootpassword";
 
+    public static void main(String[] args) {
+        checkDatabase();
+
+        // Start the CLI.
+        CLI CLI = new CLI();
+    }
+
+    public static void checkDatabase() {
         // Connecting to database
         try {
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/blogdb", "root", "rootpassword");
+            Connection connection = DriverManager.getConnection(DATABASE_CONNECT_URL, DATABASE_USER, DATABASE_PASSWORD);
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("select * from articles");
 
@@ -24,8 +31,5 @@ public class Run {
             e.printStackTrace();
         }
         System.out.println();
-
-        // Start the CLI.
-        CLI cli = new CLI();
     }
 }
