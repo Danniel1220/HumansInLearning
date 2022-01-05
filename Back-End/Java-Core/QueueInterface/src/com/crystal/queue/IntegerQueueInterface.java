@@ -28,6 +28,8 @@ public class IntegerQueueInterface {
                 newArray[i] = array[i];
             }
 
+            System.out.println("Size increased from " + array.length + " to " + newArray.length);
+
             // The array field becomes the new bigger array
             array = newArray;
 
@@ -45,10 +47,23 @@ public class IntegerQueueInterface {
         int removedItem = array[0];
         //array = Arrays.copyOfRange(array, 1, array.length);
 
-        for (int i = 0; i < array.length - 1; i++) {
-            array[i] = array[i+1];
+        // If the size of the new array after removing an item is the same size as
+        // half the array, we can cut the size of the array in half.
+        // Or better yet, create the new array with the element already removed.
+        if ((arrayIndex - 1 == array.length / 2) && arrayIndex > DEFAULT_ARRAY_SIZE ) {
+            int[] newArray = new int[array.length / 2];
+            for (int i = 0; i < newArray.length; i++) {
+                newArray[i] = array[i + 1];
+            }
+            System.out.println("Size decreased from " + array.length + " to " + newArray.length);
+            array = newArray;
         }
-
+        else {
+            for (int i = 0; i < array.length - 1; i++) {
+                array[i] = array[i+1];
+            }
+            array[arrayIndex - 1] = 0;
+        }
         arrayIndex--;
         return removedItem;
     }
