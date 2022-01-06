@@ -21,7 +21,14 @@ public class Run {
         System.out.println();
         System.out.println("p1: " + p1);
         System.out.println("p3: " + p3);
+        System.out.println("Degree of p1: " + p1.getDegree());
+        System.out.println("Degree of p3: " + p3.getDegree());
         p1.add(p3);
         System.out.println("p1 + p3: " + p1);
+        System.out.println();
+
+        System.out.println("p3: " + p3);
+        System.out.println("First derivative of p3: " + p3.getFirstDerivative());
+
     }
 }

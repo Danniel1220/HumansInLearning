@@ -36,6 +36,21 @@ public class Polynomial {
         return coefficients;
     }
 
+    public int getDegree() {
+        for (int i = coefficients.length - 1; i >= 0; i--) {
+            if (coefficients[i] != 0) return i;
+        }
+        return 0;
+    }
+
+    public Polynomial getFirstDerivative () {
+        double firstDerivative[] = new double[coefficients.length - 1];
+        for(int i = coefficients.length - 2; i >= 0; i--) {
+            firstDerivative[i] = coefficients[i + 1] * (i + 1);
+        }
+        return new Polynomial(firstDerivative);
+    }
+
     @Override
     public String toString() {
         String polynomial = "";
