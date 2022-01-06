@@ -62,11 +62,27 @@ public class Polynomial {
         return new Polynomial(firstDerivative);
     }
 
+    public double value(double x) {
+        double result = 0d;
+
+        // Iterating through the array and computing the result of each component then adding
+        // it to the result.
+        for (int i = 0; i < coefficients.length; i++) {
+            result = result + (coefficients[i] * Math.pow(x, i));
+        }
+
+        return result;
+    }
+
     @Override
     public String toString() {
         String polynomial = "";
+
+        // If the polynomial degree is 0, which means it is an empty polynomial
+
+
         for (int i = coefficients.length - 1; i > 0; i--) {
-            // If it's the first coefficient printed, and it's a negative value
+            // If it's the first coefficient printed
             if (polynomial.equals("")) {
                 if (coefficients[i] > 0) {
                     polynomial = polynomial + coefficients[i] + "x^" + i;
@@ -85,9 +101,12 @@ public class Polynomial {
                 else if (coefficients[i] < 0) {
                     polynomial = polynomial + " - " + (-coefficients[i]) + "x^" + i;
                 }
+                // Specifically omitting the case when the coefficient is 0, because it should
+                // not be printed.
             }
         }
 
+        // The iteration does not go all the way to the last value so as not to display the X for it.
         if (coefficients[0] > 0) {
             if (polynomial.equals("")) {
                 polynomial = polynomial + coefficients[0];
@@ -104,6 +123,10 @@ public class Polynomial {
                 polynomial = polynomial + " - " + (-coefficients[0]);
             }
         }
+
+        // If the polynomial string is still empty, that means all the coefficients are 0 so
+        // we return a 0 so as not to print a blank string.
+        if (polynomial.equals("")) return "0";
 
         return polynomial;
     }
