@@ -1,7 +1,5 @@
 package com.crystal.polynomial;
 
-import java.util.Arrays;
-
 public class Polynomial {
     double[] coefficients;
 
@@ -44,7 +42,7 @@ public class Polynomial {
     }
 
     public Polynomial getFirstDerivative () {
-        double firstDerivative[] = new double[coefficients.length - 1];
+        double[] firstDerivative = new double[coefficients.length - 1];
         for(int i = coefficients.length - 2; i >= 0; i--) {
             firstDerivative[i] = coefficients[i + 1] * (i + 1);
         }
@@ -62,9 +60,6 @@ public class Polynomial {
                 }
                 else if (coefficients[i] < 0) {
                     polynomial = polynomial + " - " + (-coefficients[i]) + "x^" + i;
-                }
-                else {
-
                 }
             }
             else {
