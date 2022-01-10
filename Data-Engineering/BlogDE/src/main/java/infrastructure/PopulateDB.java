@@ -1,4 +1,4 @@
-package Script;
+package infrastructure;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -56,15 +56,6 @@ public class PopulateDB {
             long millisDate = parseDate(jsonDate);
             String imgUrl = (String) arrObject.get("imgUrl");
             String content = (String) arrObject.get("content");
-
-//            String sql = "INSERT INTO `blogdb`.`articles` (`title`, `tag`, `author`, `date`, `dateTimeStamp`, `imgUrl`, `content`) VALUES (" +
-//                    "'" + title + "', " +
-//                    "'" + tag + "', " +
-//                    "'" + author + "', " +
-//                    "'" + date + "', " +
-//                    "'" + date + "', " +
-//                    "'" + imgUrl + "', " +
-//                    "'" + content + "');";
 
             String sql = "INSERT INTO `blogdb`.`articles` (`title`, `tag`, `author`, `date`, `dateTimeStamp`, `imgUrl`, `content`) VALUES (" +
                     "'" + title + "', " +

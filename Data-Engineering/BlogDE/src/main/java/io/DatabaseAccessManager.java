@@ -1,7 +1,6 @@
-package IO;
+package io;
 
-import DAO.Article;
-import com.google.gson.Gson;
+import dao.Article;
 
 import java.sql.*;
 import java.util.ArrayList;

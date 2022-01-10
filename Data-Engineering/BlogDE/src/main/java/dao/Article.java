@@ -1,4 +1,4 @@
-package DAO;
+package dao;
 
 import lombok.Builder;
 import lombok.Getter;

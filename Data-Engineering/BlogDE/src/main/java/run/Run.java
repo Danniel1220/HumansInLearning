@@ -1,9 +1,8 @@
-package Run;
+package run;
 
-import IO.CLI;
+import io.CLI;
 
 import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
 import java.awt.image.RenderedImage;
 import java.io.*;
 import java.sql.*;
@@ -16,24 +15,16 @@ public class Run {
     public static void main(String[] args) {
         checkDatabase();
 
-        // Start the CLI.
-        //CLI CLI = new CLI();
+        CLI CLI = new CLI();
 
-//        try {
-//            byteArray();
-//        } catch (IOException e) {
-//            System.out.println("rip");
-//            e.printStackTrace();
-//        }
         testByteArray();
     }
 
     public static void checkDatabase() {
         // Connecting to database
-        try {
-            Connection connection = DriverManager.getConnection(DATABASE_CONNECT_URL, DATABASE_USER, DATABASE_PASSWORD);
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("select * from articles");
+        try (Connection connection = DriverManager.getConnection(DATABASE_CONNECT_URL, DATABASE_USER, DATABASE_PASSWORD);
+             Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery("select * from articles")) {
 
             // Printing database's title row
             while (resultSet.next()) {
@@ -62,9 +53,8 @@ public class Run {
         System.out.println(fileInputStream);
 
         // Connecting to database
-        try {
-            Connection connection = DriverManager.getConnection(DATABASE_CONNECT_URL, DATABASE_USER, DATABASE_PASSWORD);
-            Statement statement = connection.createStatement();
+        try (Connection connection = DriverManager.getConnection(DATABASE_CONNECT_URL, DATABASE_USER, DATABASE_PASSWORD);
+             Statement statement = connection.createStatement()) {
             statement.executeUpdate(sql);
         } catch (SQLException e) {
             e.printStackTrace();
