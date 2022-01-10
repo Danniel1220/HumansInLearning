@@ -72,20 +72,20 @@ public class Polynomial {
             // If it's the first coefficient printed
             if (polynomialBuffer.length() == 0) {
                 if (coefficients[i] > 0) {
-                    polynomialBuffer.append(coefficients[i] + "x^" + i);
+                    polynomialBuffer.append(coefficients[i]).append("x^").append(i);
                 }
                 else if (coefficients[i] < 0) {
-                    polynomialBuffer.append(" - " + (-coefficients[i]) + "x^" + i);
+                    polynomialBuffer.append(" - ").append(-coefficients[i]).append("x^").append(i);
                 }
                 // Specifically omitting the case when the coefficient is 0, because it should
                 // not be printed.
             }
             else {
                 if (coefficients[i] > 0) {
-                    polynomialBuffer.append(" + " + coefficients[i] + "x^" + i);
+                    polynomialBuffer.append(" + ").append(coefficients[i]).append("x^").append(i);
                 }
                 else if (coefficients[i] < 0) {
-                    polynomialBuffer.append(" - " + (-coefficients[i]) + "x^" + i);
+                    polynomialBuffer.append(" - ").append(-coefficients[i]).append("x^").append(i);
                 }
                 // Specifically omitting the case when the coefficient is 0, because it should
                 // not be printed.
@@ -94,19 +94,19 @@ public class Polynomial {
 
         // The iteration does not go all the way to the last value so as not to display the X for it.
         if (coefficients[0] > 0) {
-            if (polynomialBuffer.equals("")) {
+            if (polynomialBuffer.length() == 0) {
                 polynomialBuffer.append(coefficients[0]);
             }
             else {
-                polynomialBuffer.append(" + " + coefficients[0]);
+                polynomialBuffer.append(" + ").append(coefficients[0]);
             }
         }
         else if (coefficients[0] < 0) {
-            if (polynomialBuffer.equals("")) {
+            if (polynomialBuffer.length() == 0) {
                 polynomialBuffer.append(coefficients[0]);
             }
             else {
-                polynomialBuffer.append(" - " + (-coefficients[0]));
+                polynomialBuffer.append(" - ").append(-coefficients[0]);
             }
         }
 
