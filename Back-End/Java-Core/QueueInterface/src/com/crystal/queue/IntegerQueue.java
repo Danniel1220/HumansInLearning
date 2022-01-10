@@ -2,55 +2,48 @@ package com.crystal.queue;
 
 import java.util.Arrays;
 
-public class IntegerQueueInterface {
+public class IntegerQueue {
     private final int DEFAULT_ARRAY_SIZE = 10;
     private int[] array;
-    private int arrayIndex;
+    private int totalNumberOfElements;
 
-    public IntegerQueueInterface() {
+    public IntegerQueue() {
         array = new int[DEFAULT_ARRAY_SIZE];
-        arrayIndex = 0;
     }
 
-    public IntegerQueueInterface(int size) {
+    public IntegerQueue(int size) {
         array = new int[size];
-        arrayIndex = 0;
     }
 
-    public void add(int integer) {
+    public void add(int newNumericValue) {
         // If the array is full
-        if (arrayIndex == array.length) {
-            // Create a new array, twice the size of the original array
+        if (totalNumberOfElements == array.length) {
             int[] newArray = new int[array.length*2];
 
-            // Copy the smaller array's elements into the new one
             for (int i = 0; i < array.length; i++) {
                 newArray[i] = array[i];
             }
 
             System.out.println("Size increased from " + array.length + " to " + newArray.length);
 
-            // The array field becomes the new bigger array
             array = newArray;
 
-            // Add the new element
-            array[arrayIndex] = integer;
-            arrayIndex++;
+            array[totalNumberOfElements] = newNumericValue;
+            totalNumberOfElements++;
         }
         else {
-            array[arrayIndex] = integer;
-            arrayIndex++;
+            array[totalNumberOfElements] = newNumericValue;
+            totalNumberOfElements++;
         }
     }
 
     public int remove() {
         int removedItem = array[0];
-        //array = Arrays.copyOfRange(array, 1, array.length);
 
         // If the size of the new array after removing an item is the same size as
         // half the array, we can cut the size of the array in half.
         // Or better yet, create the new array with the element already removed.
-        if ((arrayIndex - 1 == array.length / 2) && arrayIndex > DEFAULT_ARRAY_SIZE ) {
+        if ((totalNumberOfElements - 1 == array.length / 2) && totalNumberOfElements > DEFAULT_ARRAY_SIZE ) {
             int[] newArray = new int[array.length / 2];
             for (int i = 0; i < newArray.length; i++) {
                 newArray[i] = array[i + 1];
@@ -62,14 +55,14 @@ public class IntegerQueueInterface {
             for (int i = 0; i < array.length - 1; i++) {
                 array[i] = array[i+1];
             }
-            array[arrayIndex - 1] = 0;
+            array[totalNumberOfElements - 1] = 0;
         }
-        arrayIndex--;
+        totalNumberOfElements--;
         return removedItem;
     }
 
     public boolean isEmpty() {
-        return arrayIndex == 0;
+        return totalNumberOfElements == 0;
     }
 
     @Override

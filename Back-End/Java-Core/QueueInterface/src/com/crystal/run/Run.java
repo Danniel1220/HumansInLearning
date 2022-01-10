@@ -1,10 +1,10 @@
 package com.crystal.run;
 
-import com.crystal.queue.IntegerQueueInterface;
+import com.crystal.queue.IntegerQueue;
 
 public class Run {
     public static void main(String[] args) {
-        IntegerQueueInterface queue = new IntegerQueueInterface();
+        IntegerQueue queue = new IntegerQueue();
         System.out.println(queue.isEmpty());
         for(int i = 0; i < 10000; i++) {
             queue.add(i);
