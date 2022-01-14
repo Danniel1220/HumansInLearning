@@ -17,9 +17,12 @@ public class CustomerGenerator {
 
     public Customer generateCustomer() {
         Random random = new Random();
+        String name = firstNames.get(random.nextInt(firstNames.size() - 1)) + " "
+                + lastNames.get(random.nextInt(lastNames.size() - 1));
+
         return new Customer(
                 random.nextInt(1000),
-                firstNames.get(random.nextInt(firstNames.size())) + " " + lastNames.get(random.nextInt(firstNames.size())),
-                random.nextInt(3));
+                name,
+                random.nextInt(3) + 1);
     }
 }

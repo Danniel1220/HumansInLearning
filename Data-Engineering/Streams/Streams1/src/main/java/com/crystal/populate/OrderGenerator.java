@@ -28,8 +28,8 @@ public class OrderGenerator {
             }
 
             int year = 2021;
-            int month = random.nextInt(12);
-            int day = random.nextInt(29);
+            int month = random.nextInt(11) + 1;
+            int day = random.nextInt(28) + 1;
 
             LocalDate orderDate = LocalDate.of(year, month, day);
             LocalDate deliveryDate = orderDate.plusDays(2);

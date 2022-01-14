@@ -1,6 +1,8 @@
 package com.crystal.run;
 
+import com.crystal.dao.Order;
 import com.crystal.dao.Product;
+import com.crystal.populate.OrderGenerator;
 import com.crystal.populate.ProductGenerator;
 
 import java.util.ArrayList;
@@ -13,8 +15,13 @@ public class Run {
         List<Product> productList = new ArrayList<>();
         productGenerator.generateProducts(productList);
 
+        OrderGenerator orderGenerator = new OrderGenerator(productList);
+        List<Order> orderList = orderGenerator.generateOrders();
+
         System.out.println(productList);
         System.out.println(productList.size() + "\n");
+        System.out.println(orderList);
+        System.out.println(orderList.size() + "\n");
 
         printExpensiveBooks(productList);
         printBabyProducts(productList);
