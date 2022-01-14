@@ -12,16 +12,25 @@ public class ProductGenerator {
         for (int i = 0; i < 100; i++) {
             productList.add(new Product(
                     random.nextInt(99999 - 10000) + 10000,
-                    "Product " + i,
-                    "Category 1",
+                    "Book " + i,
+                    "Books",
                     random.nextInt(999 - 100) + 100));
         }
 
         for (int i = 0; i < 100; i++) {
             productList.add(new Product(
                     random.nextInt(99999 - 10000) + 10000,
-                    "Product " + i + 100,
-                    "Category 2",
+                    "Baby Product " + i,
+                    "Baby",
+                    random.nextInt(999 - 100) + 100));
+        }
+
+
+        for (int i = 0; i < 100; i++) {
+            productList.add(new Product(
+                    random.nextInt(99999 - 10000) + 10000,
+                    "Toy " + i,
+                    "Toys",
                     random.nextInt(999 - 100) + 100));
         }
     }
