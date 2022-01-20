@@ -6,8 +6,8 @@ import com.crystal.populate.OrderGenerator;
 import com.crystal.populate.ProductGenerator;
 
 import java.time.LocalDate;
-import java.time.chrono.ChronoLocalDate;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -35,6 +35,12 @@ public class Run {
                 LocalDate.of(2021, 7, 1), 2);
 
         printCheapBooks(productList);
+        print3MostRecentOrders(orderList);
+
+
+        System.out.println("- get a list of orders which were delivered on 15-July-2021, " +
+                "log the order records to the console and then return its product list");
+        printOrder(orderList, LocalDate.of(2021, 7, 15));
     }
 
     public static void printExpensiveBooks(List<Product> productList) {
@@ -90,6 +96,30 @@ public class Run {
         System.out.println("- get the cheapest product(s) of “Books” category");
         System.out.println(cheapBooks);
         System.out.println("Size: " + cheapBooks.size() + "\n");
+    }
 
+    public static void print3MostRecentOrders (List<Order> orderList) {
+        List<Order> threeMostRecentOrders = orderList.stream()
+                .sorted(Comparator.comparing(Order::getOrderDate).reversed())
+                .limit(3)
+                .collect(Collectors.toList());
+
+        System.out.println("- get the 3 most recent placed order");
+        System.out.println(threeMostRecentOrders);
+        System.out.println("Size: " + threeMostRecentOrders.size() + "\n");
+    }
+
+    public static List<List<Product>> printOrder(List<Order> orderList, LocalDate orderDate) {
+        List<Order> filteredOrderList = orderList.stream()
+                .filter(o -> o.getOrderDate().isEqual(orderDate))
+                .collect(Collectors.toList());
+
+        List<List<Product>> ordersProductsList = new ArrayList<>();
+        filteredOrderList.forEach(o -> ordersProductsList.add(o.getProducts()));
+
+        System.out.println(filteredOrderList);
+        System.out.println("Size: " + filteredOrderList.size() + "\n");
+
+        return ordersProductsList;
     }
 }
