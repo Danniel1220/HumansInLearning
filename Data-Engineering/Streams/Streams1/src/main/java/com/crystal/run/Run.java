@@ -6,6 +6,7 @@ import com.crystal.populate.OrderGenerator;
 import com.crystal.populate.ProductGenerator;
 
 import java.time.LocalDate;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -41,6 +42,8 @@ public class Run {
         System.out.println("- get a list of orders which were delivered on 15-July-2021, " +
                 "log the order records to the console and then return its product list");
         printOrder(orderList, LocalDate.of(2021, 7, 15));
+
+        printOrdersSumByMonth(orderList, Month.MARCH);
     }
 
     public static void printExpensiveBooks(List<Product> productList) {
@@ -121,5 +124,17 @@ public class Run {
         System.out.println("Size: " + filteredOrderList.size() + "\n");
 
         return ordersProductsList;
+    }
+
+    public static void printOrdersSumByMonth(List<Order> orderList, Month orderMonth) {
+        double totalSum = orderList.stream()
+                .filter(o -> (o.getOrderDate().getYear() == 2021 && o.getOrderDate().getMonth() == orderMonth))
+                .mapToDouble(o -> o.getProducts().stream()
+                    .mapToDouble(p -> p.getPrice()).sum())
+                .sum();
+
+
+        System.out.println("- calculate total sum of all orders placed in March 2021");
+        System.out.println(totalSum + "\n");
     }
 }
