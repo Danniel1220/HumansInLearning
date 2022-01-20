@@ -5,6 +5,8 @@ import com.crystal.dao.Product;
 import com.crystal.populate.OrderGenerator;
 import com.crystal.populate.ProductGenerator;
 
+import java.time.LocalDate;
+import java.time.chrono.ChronoLocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -25,6 +27,14 @@ public class Run {
         printExpensiveBooks(productList);
         printBabyProductOrders(orderList);
         printDiscountedToys(productList);
+
+        System.out.println("- get a list of products ordered by customer of tier 2 between " +
+                "01-Feb-2021 and 01-July-2021");
+        printOrder(orderList,
+                LocalDate.of(2021, 2, 1),
+                LocalDate.of(2021, 7, 1), 2);
+
+        printCheapBooks(productList);
     }
 
     public static void printExpensiveBooks(List<Product> productList) {
@@ -59,5 +69,27 @@ public class Run {
         System.out.println("- get a list of products with category = “Toys” and then apply 10% discount");
         System.out.println(expensiveBooks);
         System.out.println("Size: " + expensiveBooks.size() + "\n");
+    }
+
+    public static void printOrder(List<Order> orderList, LocalDate startDate, LocalDate endDate, int customerTier) {
+        List<Order> filteredOrderList = orderList.stream()
+                .filter(o -> o.getCustomer().getTier() == customerTier)
+                .filter(o -> (o.getOrderDate().isAfter(startDate) && o.getOrderDate().isBefore(endDate)))
+                .collect(Collectors.toList());
+
+        System.out.println(filteredOrderList);
+        System.out.println("Size: " + filteredOrderList.size() + "\n");
+    }
+
+    public static void printCheapBooks(List<Product> productList) {
+        List<Product> cheapBooks =  productList.stream()
+                .filter(p -> p.getCategory().equals("Books"))
+                .filter(p -> p.getPrice() < 150)
+                .collect(Collectors.toList());
+
+        System.out.println("- get the cheapest product(s) of “Books” category");
+        System.out.println(cheapBooks);
+        System.out.println("Size: " + cheapBooks.size() + "\n");
+
     }
 }
