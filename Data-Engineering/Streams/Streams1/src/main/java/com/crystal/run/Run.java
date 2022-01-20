@@ -12,8 +12,7 @@ import java.util.stream.Collectors;
 public class Run {
     public static void main(String[] args) {
         ProductGenerator productGenerator = new ProductGenerator();
-        List<Product> productList = new ArrayList<>();
-        productGenerator.generateProducts(productList);
+        List<Product> productList = productGenerator.generateProducts();
 
         OrderGenerator orderGenerator = new OrderGenerator(productList);
         List<Order> orderList = orderGenerator.generateOrders();

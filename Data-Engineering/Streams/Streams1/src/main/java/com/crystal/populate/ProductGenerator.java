@@ -2,11 +2,14 @@ package com.crystal.populate;
 
 import com.crystal.dao.Product;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 public class ProductGenerator {
-    public void generateProducts (List<Product> productList) {
+    public List<Product> generateProducts () {
+        List<Product> productList = new ArrayList<>();
+
         Random random = new Random();
 
         for (int i = 0; i < 100; i++) {
@@ -33,5 +36,7 @@ public class ProductGenerator {
                     "Toys",
                     random.nextInt(999 - 100) + 100));
         }
+
+        return productList;
     }
 }
