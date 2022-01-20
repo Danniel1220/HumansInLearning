@@ -23,7 +23,7 @@ public class Run {
         System.out.println(orderList.size() + "\n");
 
         printExpensiveBooks(productList);
-        printBabyProducts(productList);
+        printBabyProductOrders(orderList);
         printDiscountedToys(productList);
     }
 
@@ -38,14 +38,15 @@ public class Run {
         System.out.println("Size: " + expensiveBooks.size() + "\n");
     }
 
-    public static void printBabyProducts(List<Product> productList) {
-        List<Product> expensiveBooks =  productList.stream()
-                .filter(p -> p.getCategory().equals("Baby"))
-                .collect(Collectors.toList());
+    public static void printBabyProductOrders(List<Order> orderList) {
+        List<Order> babyCategoryOrders =  orderList.stream()
+                        .filter(o -> o.getProducts().stream()
+                                .anyMatch(p -> "Baby".equals(p.getCategory())))
+                        .collect(Collectors.toList());
 
-        System.out.println("- get a list of order with products belong to category “Baby”");
-        System.out.println(expensiveBooks);
-        System.out.println("Size: " + expensiveBooks.size() + "\n");
+        System.out.println("- get a list of orders with products that belong to category “Baby”");
+        System.out.println(babyCategoryOrders);
+        System.out.println("Size: " + babyCategoryOrders.size() + "\n");
     }
 
     public static void printDiscountedToys(List<Product> productList) {

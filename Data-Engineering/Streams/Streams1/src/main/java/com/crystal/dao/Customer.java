@@ -1,12 +1,14 @@
 package com.crystal.dao;
 
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.ToString;
 
 @AllArgsConstructor
 @ToString
+@Getter
 public class Customer {
-    private long id;
-    private String name;
-    private int tier;
+    private final long id;
+    private final String name;
+    private final int tier;
 }
