@@ -10,6 +10,7 @@ import java.time.Month;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.function.DoubleConsumer;
 import java.util.stream.Collectors;
 
 public class Run {
@@ -44,6 +45,7 @@ public class Run {
         printOrder(orderList, LocalDate.of(2021, 7, 15));
 
         printOrdersSumByMonth(orderList, Month.MARCH);
+        printOrderAveragePaymentByDay(orderList, LocalDate.of(2021, 5, 17));
     }
 
     public static void printExpensiveBooks(List<Product> productList) {
@@ -136,5 +138,22 @@ public class Run {
 
         System.out.println("- calculate total sum of all orders placed in March 2021");
         System.out.println(totalSum + "\n");
+    }
+
+    public static void printOrderAveragePaymentByDay(List<Order> orderList, LocalDate requestedDate) {
+        double totalPaymentAverage = orderList.stream()
+                .filter(o -> o.getOrderDate().equals(requestedDate))
+                .mapToDouble(o -> o.getProducts().stream()
+                        .mapToDouble(p -> p.getPrice())
+                        .average()
+                        .orElse(0))
+                .average()
+                .orElse(0);
+
+        // Since the orders generated are for the year 2021 and the exercise calls for the average
+        // of payments placed yesterday, we will instead just calculate the average payment
+        // for a specific day.
+        System.out.println("- calculate order average payment placed yesterday (actually checks for 17-May-2021");
+        System.out.println(totalPaymentAverage + "\n");
     }
 }
