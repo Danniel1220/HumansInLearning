@@ -23,7 +23,10 @@ public class OrderGenerator {
         for (int i = 0; i < 100; i++) {
 
             List<Product> orderProductsList = new ArrayList<>();
-            for (int j = 0; j < 10; j++) {
+
+            int productsAmount = random.nextInt(11) + 10;
+
+            for (int j = 0; j < productsAmount; j++) {
                 orderProductsList.add(productList.get(random.nextInt(productList.size())));
             }
 

@@ -4,11 +4,9 @@ import com.crystal.dao.Order;
 import com.crystal.dao.Product;
 import com.crystal.populate.OrderGenerator;
 import com.crystal.populate.ProductGenerator;
-
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.*;
-import java.util.function.DoubleConsumer;
 import java.util.stream.Collectors;
 
 public class Run {
@@ -45,6 +43,7 @@ public class Run {
         printOrdersSumByMonth(orderList, Month.MARCH);
         printOrderAveragePaymentByDay(orderList, LocalDate.of(2021, 5, 17));
         printStatisticFiguresForBooks(productList);
+        printMapWithOrderIdAndProductCount(orderList);
     }
 
     public static void printExpensiveBooks(List<Product> productList) {
@@ -169,5 +168,14 @@ public class Run {
                 "\nmax: " + statistics.getMax() +
                 "\nmin: " + statistics.getMin() +
                 "\ncount: " + statistics.getCount() + "\n");
+    }
+
+    public static void printMapWithOrderIdAndProductCount(List<Order> orderList) {
+        Map<Long, Integer> orderIdAndProductCountMap = orderList.stream()
+                .collect(Collectors.toMap(o -> o.getId(), o -> o.getProducts().size()));
+
+        System.out.println("- get a map with order id and order’s product count");
+        System.out.println(orderIdAndProductCountMap);
+        System.out.println("Size: " + orderIdAndProductCountMap.size() + "\n");
     }
 }
