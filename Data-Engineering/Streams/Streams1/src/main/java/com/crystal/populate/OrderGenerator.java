@@ -1,5 +1,6 @@
 package com.crystal.populate;
 
+import com.crystal.dao.Customer;
 import com.crystal.dao.Order;
 import com.crystal.dao.Product;
 import lombok.AllArgsConstructor;
@@ -17,6 +18,7 @@ public class OrderGenerator {
         List<Order> orderList = new ArrayList<>();
 
         CustomerGenerator customerGenerator = new CustomerGenerator();
+        List<Customer> customerList= customerGenerator.generateCustomerList(20);
         Random random = new Random();
 
 
@@ -43,7 +45,7 @@ public class OrderGenerator {
                     orderDate,
                     deliveryDate,
                     orderProductsList,
-                    customerGenerator.generateCustomer());
+                    customerList.get(random.nextInt(customerList.size())));
 
             orderList.add(order);
         }

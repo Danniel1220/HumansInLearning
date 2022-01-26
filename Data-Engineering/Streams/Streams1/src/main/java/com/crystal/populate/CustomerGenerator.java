@@ -2,6 +2,7 @@ package com.crystal.populate;
 
 import com.crystal.dao.Customer;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
@@ -24,5 +25,16 @@ public class CustomerGenerator {
                 random.nextInt(1000),
                 name,
                 random.nextInt(3) + 1);
+    }
+
+    public List<Customer> generateCustomerList(int amountOfCustomers) {
+        List<Customer> customerList = new ArrayList<>();
+
+        for(int i = 0; i < amountOfCustomers; i++) {
+            customerList.add(generateCustomer());
+        }
+
+        return customerList;
+
     }
 }

@@ -1,5 +1,6 @@
 package com.crystal.run;
 
+import com.crystal.dao.Customer;
 import com.crystal.dao.Order;
 import com.crystal.dao.Product;
 import com.crystal.populate.OrderGenerator;
@@ -44,6 +45,7 @@ public class Run {
         printOrderAveragePaymentByDay(orderList, LocalDate.of(2021, 5, 17));
         printStatisticFiguresForBooks(productList);
         printMapWithOrderIdAndProductCount(orderList);
+        printMapWithOrderRecordsOfCustomers(orderList);
     }
 
     public static void printExpensiveBooks(List<Product> productList) {
@@ -177,5 +179,25 @@ public class Run {
         System.out.println("- get a map with order id and order’s product count");
         System.out.println(orderIdAndProductCountMap);
         System.out.println("Size: " + orderIdAndProductCountMap.size() + "\n");
+    }
+
+    public static void printMapWithOrderRecordsOfCustomers(List<Order> orderList) {
+        // Create a set with all customers found in orderList
+        Set<Customer> customerSet = orderList.stream().map(o -> o.getCustomer()).collect(Collectors.toSet());
+
+        // Creating a HashMap that contains all customers as keys and empty lists as values
+        HashMap<Customer, List<Order>> customerListHashMap = new HashMap<>();
+        customerSet.forEach(c -> customerListHashMap.put(c, new ArrayList<>()));
+
+        // For each order in orderList, we look for that order's customer in the HashMap and add
+        // the order to the customer's order list.
+        orderList.forEach(o -> {
+            List<Order> customerOrderList = customerListHashMap.get(o.getCustomer());
+            customerOrderList.add(o);
+            customerListHashMap.put(o.getCustomer(), customerOrderList);
+        });
+
+        System.out.println(customerListHashMap);
+        System.out.println(customerListHashMap.size());
     }
 }
