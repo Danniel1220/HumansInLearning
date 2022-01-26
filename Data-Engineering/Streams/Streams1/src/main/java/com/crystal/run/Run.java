@@ -7,9 +7,7 @@ import com.crystal.populate.ProductGenerator;
 
 import java.time.LocalDate;
 import java.time.Month;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 import java.util.function.DoubleConsumer;
 import java.util.stream.Collectors;
 
@@ -46,6 +44,7 @@ public class Run {
 
         printOrdersSumByMonth(orderList, Month.MARCH);
         printOrderAveragePaymentByDay(orderList, LocalDate.of(2021, 5, 17));
+        printStatisticFiguresForBooks(productList);
     }
 
     public static void printExpensiveBooks(List<Product> productList) {
@@ -155,5 +154,20 @@ public class Run {
         // for a specific day.
         System.out.println("- calculate order average payment placed yesterday (actually checks for 17-May-2021");
         System.out.println(totalPaymentAverage + "\n");
+    }
+
+    public static void printStatisticFiguresForBooks(List<Product> productList) {
+        DoubleSummaryStatistics statistics = productList.stream()
+                        .filter(p -> p.getCategory().equals("Books"))
+                        .mapToDouble(p -> p.getPrice())
+                        .summaryStatistics();
+
+        System.out.println("- get a collection of statistic figures (i.e. sum, average, " +
+                "max, min, count) for all products of category “Books”");
+        System.out.println("sum: " + statistics.getSum() +
+                "\naverage: " + statistics.getAverage() +
+                "\nmax: " + statistics.getMax() +
+                "\nmin: " + statistics.getMin() +
+                "\ncount: " + statistics.getCount() + "\n");
     }
 }
