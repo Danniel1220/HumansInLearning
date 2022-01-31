@@ -18,6 +18,7 @@ public class ProductGenerator {
         return productList;
     }
 
+    // make this return a list
     private void generateProductCategory(List<Product> productList, List<Integer> alreadyGeneratedIds,
                           String name, String category) {
         Random random = new Random();
