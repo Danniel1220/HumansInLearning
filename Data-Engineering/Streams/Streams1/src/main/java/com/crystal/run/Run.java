@@ -47,6 +47,7 @@ public class Run {
         printMapWithOrderIdAndProductCount(orderList);
         printMapWithOrderRecordsOfCustomers(orderList);
         printMapWithOrderRecordsAndTotalProductSum(orderList);
+        printMostExpensiveProductByCategory(productList, "Toys");
     }
 
     public static void printExpensiveBooks(List<Product> productList) {
@@ -212,5 +213,16 @@ public class Run {
         System.out.println("- get a map with order record and product total sum");
         System.out.println(ordersAndTheirProductSumMap);
         System.out.println("Size: " + ordersAndTheirProductSumMap.size() + "\n");
+    }
+
+    public static void printMostExpensiveProductByCategory(List<Product> productList, String category) {
+        double maxPrice = productList.stream()
+                .filter(p -> p.getCategory().equals(category))
+                .mapToDouble(p -> p.getPrice())
+                .max()
+                .getAsDouble();
+
+        System.out.println("- get the most expensive product by category");
+        System.out.println("Category: " + category + ", Maximum Price: " + maxPrice);
     }
 }
