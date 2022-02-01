@@ -24,3 +24,5 @@ jobs:
         cache: maven
     - name: Build with Maven
       run: mvn -B package --file Data-Engineering/Streams/Streams1/pom.xml
+    - name: Test with Maven
+      run: mvn -B test --file Data-Engineering/Streams/Streams1/pom.xml
