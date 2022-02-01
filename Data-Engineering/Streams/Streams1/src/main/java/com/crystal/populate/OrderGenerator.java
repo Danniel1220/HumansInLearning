@@ -14,17 +14,17 @@ import java.util.Random;
 public class OrderGenerator {
     private List<Product> productList;
 
-    public List<Order> generateOrders() {
+    public List<Order> generateOrders(int amountOfOrders, int amountofCustomers) {
         List<Order> orderList = new ArrayList<>();
 
         List<Integer> alreadyGeneratedIds = new ArrayList<>();
 
         CustomerGenerator customerGenerator = new CustomerGenerator();
-        List<Customer> customerList= customerGenerator.generateCustomerList(20);
+        List<Customer> customerList= customerGenerator.generateCustomerList(amountofCustomers);
         Random random = new Random();
 
 
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < amountOfOrders; i++) {
 
             List<Product> orderProductsList = new ArrayList<>();
 

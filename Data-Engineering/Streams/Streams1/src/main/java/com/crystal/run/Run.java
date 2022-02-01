@@ -16,7 +16,7 @@ public class Run {
         List<Product> productList = productGenerator.generateProducts();
 
         OrderGenerator orderGenerator = new OrderGenerator(productList);
-        List<Order> orderList = orderGenerator.generateOrders();
+        List<Order> orderList = orderGenerator.generateOrders(100, 20);
 
         System.out.println(productList);
         System.out.println(productList.size() + "\n");

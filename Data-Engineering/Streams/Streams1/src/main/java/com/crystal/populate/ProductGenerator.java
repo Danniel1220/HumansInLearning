@@ -24,8 +24,6 @@ public class ProductGenerator {
         List<Product> products = new ArrayList<>();
 
         for (int i = 0; i < productAmount; i++) {
-            System.out.println("Generating product " + i);
-
             int id = random.nextInt(99999 - 10000) + 10000;
             while (alreadyGeneratedIds.contains(id)) {
                 id = random.nextInt(99999 - 10000) + 10000;
