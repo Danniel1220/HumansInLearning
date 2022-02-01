@@ -17,6 +17,8 @@ public class OrderGenerator {
     public List<Order> generateOrders() {
         List<Order> orderList = new ArrayList<>();
 
+        List<Integer> alreadyGeneratedIds = new ArrayList<>();
+
         CustomerGenerator customerGenerator = new CustomerGenerator();
         List<Customer> customerList= customerGenerator.generateCustomerList(20);
         Random random = new Random();
@@ -39,8 +41,14 @@ public class OrderGenerator {
             LocalDate orderDate = LocalDate.of(year, month, day);
             LocalDate deliveryDate = orderDate.plusDays(2);
 
+            int id = random.nextInt(99999 - 10000) + 10000;
+            while (alreadyGeneratedIds.contains(id)) {
+                id = random.nextInt(99999 - 10000) + 10000;
+            }
+            alreadyGeneratedIds.add(id);
+
             Order order = new Order(
-                    random.nextInt(99999 - 10000) + 10000,
+                    id,
                     "Processing",
                     orderDate,
                     deliveryDate,

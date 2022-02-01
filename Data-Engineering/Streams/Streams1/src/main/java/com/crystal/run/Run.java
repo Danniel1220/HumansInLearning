@@ -46,6 +46,7 @@ public class Run {
         printStatisticFiguresForBooks(productList);
         printMapWithOrderIdAndProductCount(orderList);
         printMapWithOrderRecordsOfCustomers(orderList);
+        printMapWithOrderRecordsAndTotalProductSum(orderList);
     }
 
     public static void printExpensiveBooks(List<Product> productList) {
@@ -197,7 +198,19 @@ public class Run {
             customerListHashMap.put(o.getCustomer(), customerOrderList);
         });
 
+        System.out.println("- get a map with order records grouped by customer");
         System.out.println(customerListHashMap);
-        System.out.println(customerListHashMap.size());
+        System.out.println("Size: " + customerListHashMap.size() + "\n");
+    }
+
+    public static void printMapWithOrderRecordsAndTotalProductSum(List<Order> orderList) {
+        HashMap<Order, Double> ordersAndTheirProductSumMap = new HashMap<>();
+
+        orderList.forEach(o -> ordersAndTheirProductSumMap.put(o, o.getProducts().stream()
+                .mapToDouble(p -> p.getPrice()).sum()));
+
+        System.out.println("- get a map with order record and product total sum");
+        System.out.println(ordersAndTheirProductSumMap);
+        System.out.println("Size: " + ordersAndTheirProductSumMap.size() + "\n");
     }
 }

@@ -33,6 +33,7 @@ public class ProductGenerator {
                     name + i,
                     category,
                     random.nextInt(999 - 100) + 100));
+
             alreadyGeneratedIds.add(id);
         }
     }
