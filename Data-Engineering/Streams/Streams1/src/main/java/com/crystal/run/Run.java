@@ -134,7 +134,7 @@ public class Run {
         double totalSum = orderList.stream()
                 .filter(o -> (o.getOrderDate().getYear() == 2021 && o.getOrderDate().getMonth() == orderMonth))
                 .mapToDouble(o -> o.getProducts().stream()
-                    .mapToDouble(p -> p.getPrice()).sum())
+                    .mapToDouble(Product::getPrice).sum())
                 .sum();
 
 
@@ -146,7 +146,7 @@ public class Run {
         double totalPaymentAverage = orderList.stream()
                 .filter(o -> o.getOrderDate().equals(requestedDate))
                 .mapToDouble(o -> o.getProducts().stream()
-                        .mapToDouble(p -> p.getPrice())
+                        .mapToDouble(Product::getPrice)
                         .average()
                         .orElse(0))
                 .average()
@@ -162,7 +162,7 @@ public class Run {
     public static void printStatisticFiguresForBooks(List<Product> productList) {
         DoubleSummaryStatistics statistics = productList.stream()
                         .filter(p -> p.getCategory().equals("Books"))
-                        .mapToDouble(p -> p.getPrice())
+                        .mapToDouble(Product::getPrice)
                         .summaryStatistics();
 
         System.out.println("- get a collection of statistic figures (i.e. sum, average, " +
@@ -176,7 +176,7 @@ public class Run {
 
     public static void printMapWithOrderIdAndProductCount(List<Order> orderList) {
         Map<Long, Integer> orderIdAndProductCountMap = orderList.stream()
-                .collect(Collectors.toMap(o -> o.getId(), o -> o.getProducts().size()));
+                .collect(Collectors.toMap(Order::getId, o -> o.getProducts().size()));
 
         System.out.println("- get a map with order id and order’s product count");
         System.out.println(orderIdAndProductCountMap);
@@ -185,7 +185,7 @@ public class Run {
 
     public static void printMapWithOrderRecordsOfCustomers(List<Order> orderList) {
         // Create a set with all customers found in orderList
-        Set<Customer> customerSet = orderList.stream().map(o -> o.getCustomer()).collect(Collectors.toSet());
+        Set<Customer> customerSet = orderList.stream().map(Order::getCustomer).collect(Collectors.toSet());
 
         // Creating a HashMap that contains all customers as keys and empty lists as values
         HashMap<Customer, List<Order>> customerListHashMap = new HashMap<>();
@@ -208,7 +208,7 @@ public class Run {
         HashMap<Order, Double> ordersAndTheirProductSumMap = new HashMap<>();
 
         orderList.forEach(o -> ordersAndTheirProductSumMap.put(o, o.getProducts().stream()
-                .mapToDouble(p -> p.getPrice()).sum()));
+                .mapToDouble(Product::getPrice).sum()));
 
         System.out.println("- get a map with order record and product total sum");
         System.out.println(ordersAndTheirProductSumMap);
@@ -218,7 +218,7 @@ public class Run {
     public static void printMostExpensiveProductByCategory(List<Product> productList, String category) {
         double maxPrice = productList.stream()
                 .filter(p -> p.getCategory().equals(category))
-                .mapToDouble(p -> p.getPrice())
+                .mapToDouble(Product::getPrice)
                 .max()
                 .getAsDouble();
 
