@@ -3,36 +3,34 @@ package com.crystal.beam;
 import com.crystal.beam.utils.BeamUtils;
 import com.crystal.dao.Vehicle;
 import org.apache.beam.sdk.Pipeline;
-import org.apache.beam.sdk.coders.BigEndianIntegerCoder;
-import org.apache.beam.sdk.coders.CannotProvideCoderException;
-import org.apache.beam.sdk.coders.KvCoder;
-import org.apache.beam.sdk.coders.StringUtf8Coder;
+import org.apache.beam.sdk.coders.*;
 import org.apache.beam.sdk.io.jdbc.JdbcIO;
 import org.apache.beam.sdk.testing.PAssert;
 import org.apache.beam.sdk.transforms.Create;
 import org.apache.beam.sdk.transforms.MapElements;
 import org.apache.beam.sdk.transforms.PTransform;
+import org.apache.beam.sdk.transforms.SerializableFunction;
 import org.apache.beam.sdk.values.KV;
 import org.apache.beam.sdk.values.PBegin;
 import org.apache.beam.sdk.values.PCollection;
 import org.apache.beam.sdk.values.TypeDescriptor;
 import org.apache.commons.io.FileUtils;
 import org.junit.AfterClass;
+import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 
 public class JDBCTest {
     private static final String URL = "jdbc:mysql://localhost:3306/apache";
     private static final String USER = "root";
     private static final String PASSWORD = "rootpassword";
-
 
     @BeforeClass
     public static void init() {
@@ -47,22 +45,44 @@ public class JDBCTest {
     @Test
     public void should_create_pCollection_via_pipeline_apply() {
         Pipeline pipeline = BeamUtils.createPipeline("Vehicles Job via Pipeline");
-        String query = "select * from vehicles";
+        String query = "select * from apache.vehicles where id = 30;";
 
-        pipeline.apply(JdbcIO.<KV<Integer, String>>read()
+        PCollection<Vehicle> vehiclePCollection = pipeline.apply(JdbcIO.<Vehicle>read()
                 .withDataSourceConfiguration(JdbcIO.DataSourceConfiguration.create(
                                 "com.mysql.jdbc.Driver", URL)
                         .withUsername(USER)
                         .withPassword(PASSWORD))
                 .withQuery(query)
-                .withCoder(KvCoder.of(BigEndianIntegerCoder.of(), StringUtf8Coder.of()))
-                .withRowMapper((JdbcIO.RowMapper<KV<Integer, String>>) resultSet ->
-                        KV.of(resultSet.getInt(1), resultSet.getString(2)))
-        );
+                .withCoder(SerializableCoder.of(Vehicle.class))
+                .withRowMapper(new MyRowMapper()));
+
+        PAssert.that(vehiclePCollection).containsInAnyOrder(new Vehicle("WAUBH24B8XN021102", "Audi","A6", 1999));
+
+//        // Way to do more complex asserts on each entry in the PColection
+//        PAssert.that(vehiclePCollection).satisfies(new SerializableFunction<Iterable<Vehicle>, Void>() {
+//            @Override
+//            public Void apply(Iterable<Vehicle> input) {
+//                Iterator<Vehicle> iter = input.iterator();
+//                Vehicle veh = iter.next();
+//                Assert.assertEquals(veh, new Vehicle("aWAUBH24B8XN021102", "Audi","A6", 1999));
+//                Assert.assertFalse(iter.hasNext());
+//                return null;
+//            }
+//        });
 
         pipeline.run().waitUntilFinish();
     }
 
+    public static class MyRowMapper implements JdbcIO.RowMapper<Vehicle> {
+        @Override
+        public Vehicle mapRow(ResultSet resultSet) throws SQLException {
+            return new Vehicle(
+                    resultSet.getString("VIN"),
+                    resultSet.getString("brand"),
+                    resultSet.getString("model"),
+                    resultSet.getInt("yearProduced"));
+        }
+    }
 
     @Test
     public void should_create_pCollection_via_resultSet() throws SQLException {
