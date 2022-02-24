@@ -2,29 +2,19 @@ package com.crystal.beam;
 
 import com.crystal.beam.utils.BeamUtils;
 import com.crystal.dao.Vehicle;
+import com.crystal.mapper.VehicleRowMapper;
 import org.apache.beam.sdk.Pipeline;
 import org.apache.beam.sdk.coders.*;
 import org.apache.beam.sdk.io.jdbc.JdbcIO;
 import org.apache.beam.sdk.testing.PAssert;
 import org.apache.beam.sdk.transforms.Create;
-import org.apache.beam.sdk.transforms.MapElements;
-import org.apache.beam.sdk.transforms.PTransform;
-import org.apache.beam.sdk.transforms.SerializableFunction;
-import org.apache.beam.sdk.values.KV;
-import org.apache.beam.sdk.values.PBegin;
 import org.apache.beam.sdk.values.PCollection;
-import org.apache.beam.sdk.values.TypeDescriptor;
-import org.apache.commons.io.FileUtils;
 import org.junit.AfterClass;
-import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import java.io.*;
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
 
 public class JDBCTest {
@@ -54,7 +44,7 @@ public class JDBCTest {
                         .withPassword(PASSWORD))
                 .withQuery(query)
                 .withCoder(SerializableCoder.of(Vehicle.class))
-                .withRowMapper(new MyRowMapper()));
+                .withRowMapper(new VehicleRowMapper()));
 
         PAssert.that(vehiclePCollection).containsInAnyOrder(new Vehicle("WAUBH24B8XN021102", "Audi","A6", 1999));
 
@@ -71,17 +61,6 @@ public class JDBCTest {
 //        });
 
         pipeline.run().waitUntilFinish();
-    }
-
-    public static class MyRowMapper implements JdbcIO.RowMapper<Vehicle> {
-        @Override
-        public Vehicle mapRow(ResultSet resultSet) throws SQLException {
-            return new Vehicle(
-                    resultSet.getString("VIN"),
-                    resultSet.getString("brand"),
-                    resultSet.getString("model"),
-                    resultSet.getInt("yearProduced"));
-        }
     }
 
     @Test
