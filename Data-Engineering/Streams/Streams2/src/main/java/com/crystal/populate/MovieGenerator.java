@@ -1,5 +1,6 @@
 package com.crystal.populate;
 
+import com.crystal.dao.Director;
 import com.crystal.dao.Genre;
 import com.crystal.dao.Movie;
 
@@ -14,15 +15,17 @@ public class MovieGenerator {
     private final List<String> linkWord;
 
     DirectorGenerator directorGenerator;
+    List<Director> directors;
 
     Random random;
 
-    public MovieGenerator() {
+    public MovieGenerator(int seed) {
         regularWord = Arrays.asList("Hunter", "Intruder", "Figure", "Creature", "Foreigner", "Armies", "Men", "Women", "Recruits", "Pilots", "Directors",
                 "Restoration", "Demise", "Throne", "Universe", "Celebrating", "Caution", "Puzzle", "Fortune", "Equality");
         linkWord = Arrays.asList("with", "of", "and", "for", "for the");
         directorGenerator = new DirectorGenerator();
-        random = new Random();
+        directors = directorGenerator.generateDirectorList(10);
+        random = new Random(seed);
     }
 
     public List<Movie> generateMovieList(int size) {
@@ -43,7 +46,7 @@ public class MovieGenerator {
         return new Movie(movieTitle,
                 random.nextInt(70) + 1950,
                 random.nextInt(100000),
-                directorGenerator.generateDirector(),
+                directors.get(random.nextInt(directors.size())),
                 generateGenresList());
     }
 

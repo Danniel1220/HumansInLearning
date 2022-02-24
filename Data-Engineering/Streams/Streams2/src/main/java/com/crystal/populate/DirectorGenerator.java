@@ -1,6 +1,7 @@
 package com.crystal.populate;
 
 import com.crystal.dao.Director;
+import com.crystal.dao.Genre;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -14,6 +15,14 @@ public class DirectorGenerator {
     public DirectorGenerator() {
         firstNames = Arrays.asList("John", "David", "Elisabeth", "Daniel", "Andrew", "Maria", "Diana", "Nicholas", "Sarah", "Miley");
         lastNames = Arrays.asList("Cooper", "Smith", "Ackerman", "Jaeger", "Williams", "Brown", "Garcia", "Miller");
+    }
+
+    public List<Director> generateDirectorList(int size) {
+        List<Director> directors = new ArrayList<>();
+        for(int i = 0; i < size; i++) {
+            directors.add(generateDirector());
+        }
+        return directors;
     }
 
     public Director generateDirector() {

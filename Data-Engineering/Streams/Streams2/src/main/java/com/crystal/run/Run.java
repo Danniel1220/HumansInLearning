@@ -7,7 +7,7 @@ import java.util.List;
 
 public class Run {
     public static void main(String[] args) {
-        List<Movie> movies = new MovieGenerator().generateMovieList(100);
+        List<Movie> movies = new MovieGenerator(12).generateMovieList(20);
         System.out.println(movies);
     }
 }
