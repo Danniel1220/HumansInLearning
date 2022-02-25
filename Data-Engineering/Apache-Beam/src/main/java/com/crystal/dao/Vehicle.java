@@ -11,6 +11,7 @@ import java.util.Objects;
 @Setter
 @Getter
 @NoArgsConstructor
+@ToString
 public class Vehicle implements Serializable {
     private String VIN;
     private String brand;
