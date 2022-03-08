@@ -13,7 +13,12 @@ public class NearEarthObjectAPIManager {
     HttpURLConnection httpConnection;
 
     public NearEarthObjectAPIManager() {
+
+    }
+
+    public String getDemoKeyAPIResponse() {
         StringBuffer responseContent = new StringBuffer();
+        int status;
 
         try {
             URL url = new URL(NEAR_EARTH_OBJECT_DEMO_KEY);
@@ -21,7 +26,7 @@ public class NearEarthObjectAPIManager {
             httpConnection.setRequestMethod("GET");
             httpConnection.setConnectTimeout(5000);
             httpConnection.setReadTimeout(5000);
-            int status = httpConnection.getResponseCode();
+            status = httpConnection.getResponseCode();
             System.out.println("Connection status: " + status);
             String line;
             BufferedReader reader;
@@ -38,6 +43,8 @@ public class NearEarthObjectAPIManager {
 
             reader.close();
             System.out.println(responseContent);
+
+            return responseContent.toString();
         } catch (ProtocolException e) {
             e.printStackTrace();
         } catch (MalformedURLException e) {
@@ -46,5 +53,6 @@ public class NearEarthObjectAPIManager {
             e.printStackTrace();
         }
 
+        return "";
     }
 }
