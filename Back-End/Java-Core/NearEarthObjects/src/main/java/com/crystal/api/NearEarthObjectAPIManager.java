@@ -42,7 +42,6 @@ public class NearEarthObjectAPIManager {
             }
 
             reader.close();
-            System.out.println(responseContent);
 
             return responseContent.toString();
         } catch (ProtocolException e) {
