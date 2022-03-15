@@ -13,6 +13,7 @@ public class VehicleRowMapper implements JdbcIO.RowMapper<Vehicle> {
                 resultSet.getString("VIN"),
                 resultSet.getString("brand"),
                 resultSet.getString("model"),
-                resultSet.getInt("yearProduced"));
+                resultSet.getInt("yearProduced"),
+                resultSet.getInt("eventTime"));
     }
 }

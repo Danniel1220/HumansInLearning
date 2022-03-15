@@ -16,7 +16,8 @@ public class ParDoAndDoFnTest {
         final String query = "select * from vehicles;";
         final int workers = 1;
 
-        PCollection<Vehicle> vehiclePCollection = DatabaseConnector.selectAndGetPCollectionOfVehicles(query, "Fixed time windows", workers);
+        PCollection<Vehicle> vehiclePCollection = DatabaseConnector.selectAndGetPCollectionOfVehicles(query,
+                "Applying PTransforms with ParDo and DoFn", workers);
         Pipeline pipeline = vehiclePCollection.getPipeline();
 
         vehiclePCollection.apply(ParDo.of(new OutputVehiclesDoFn()));
@@ -42,7 +43,8 @@ public class ParDoAndDoFnTest {
                     "0000000000000000",
                     vehicle.getBrand(),
                     vehicle.getModel(),
-                    vehicle.getYearProduced()
+                    vehicle.getYearProduced(),
+                    vehicle.getEventTime()
             ));
         }
     }

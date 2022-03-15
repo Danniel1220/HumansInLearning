@@ -46,7 +46,7 @@ public class JDBCTest {
                 .withCoder(SerializableCoder.of(Vehicle.class))
                 .withRowMapper(new VehicleRowMapper()));
 
-        PAssert.that(vehiclePCollection).containsInAnyOrder(new Vehicle("WAUBH24B8XN021102", "Audi","A6", 1999));
+        PAssert.that(vehiclePCollection).containsInAnyOrder(new Vehicle("WAUBH24B8XN021102", "Audi","A6", 1999, 1));
 
 //        // Way to do more complex asserts on each entry in the PColection
 //        PAssert.that(vehiclePCollection).satisfies(new SerializableFunction<Iterable<Vehicle>, Void>() {
@@ -78,7 +78,7 @@ public class JDBCTest {
 
         //PTransform printingPTransform = MapElements.into(TypeDescriptor.of(Vehicle.class)).via() -> {
 
-        PAssert.that(vehiclePCollection).containsInAnyOrder(new Vehicle("WAUBH24B8XN021102", "Audi","A6", 1999));
+        PAssert.that(vehiclePCollection).containsInAnyOrder(new Vehicle("WAUBH24B8XN021102", "Audi","A6", 1999, 1));
 
         pipeline.run().waitUntilFinish();
     }
@@ -109,7 +109,8 @@ public class JDBCTest {
                     resultSet.getString("VIN"),
                     resultSet.getString("brand"),
                     resultSet.getString("model"),
-                    resultSet.getInt("yearProduced")
+                    resultSet.getInt("yearProduced"),
+                    resultSet.getInt("eventTime")
             ));
         }
 
