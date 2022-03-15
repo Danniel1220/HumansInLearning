@@ -17,6 +17,7 @@ public class Vehicle implements Serializable {
     private String brand;
     private String model;
     private int yearProduced;
+    private int eventTime;
 
     @Override
     public boolean equals(Object o) {
