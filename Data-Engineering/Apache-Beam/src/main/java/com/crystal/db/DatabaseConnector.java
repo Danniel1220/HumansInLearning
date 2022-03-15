@@ -25,8 +25,12 @@ public class DatabaseConnector {
                         .withPassword(PASSWORD))
                 .withQuery(query)
                 .withCoder(SerializableCoder.of(Vehicle.class))
+                //.withCoder(SerializableCoder.of(this.inputClass))
                 .withRowMapper(new VehicleRowMapper());
 
-        return (PCollection<Vehicle>) pipeline.apply(readFromDatabasePTransform);
+        // jdbc repo on spring data
+        // remove mapper and apply mapper afterwards after method call
+
+        return pipeline.apply(readFromDatabasePTransform);
     }
 }
