@@ -10,6 +10,8 @@ import java.net.URL;
 
 public class NearEarthObjectAPIManager {
     private final String NEAR_EARTH_OBJECT_DEMO_KEY = "https://api.nasa.gov/neo/rest/v1/feed?start_date=2015-09-07&end_date=2015-09-08&api_key=DEMO_KEY";
+    private final int CONNECT_TIMEOUT = 5000;
+    private final int READ_TIMEOUT = 5000;
     HttpURLConnection httpConnection;
 
     public NearEarthObjectAPIManager() {
@@ -24,8 +26,8 @@ public class NearEarthObjectAPIManager {
             URL url = new URL(NEAR_EARTH_OBJECT_DEMO_KEY);
             httpConnection = (HttpURLConnection)url.openConnection();
             httpConnection.setRequestMethod("GET");
-            httpConnection.setConnectTimeout(5000);
-            httpConnection.setReadTimeout(5000);
+            httpConnection.setConnectTimeout(CONNECT_TIMEOUT);
+            httpConnection.setReadTimeout(READ_TIMEOUT);
             status = httpConnection.getResponseCode();
             System.out.println("Connection status: " + status);
             String line;
