@@ -10,7 +10,6 @@ import java.util.List;
 
 public class NeoJsonParser {
 
-
     public static List<NearEarthObject> parseNeoJsonToNeoList(String inputJsonString) {
         List<NearEarthObject> nearEarthObjectList = new ArrayList<>();
 
@@ -36,19 +35,33 @@ public class NeoJsonParser {
         return nearEarthObjectList;
     }
 
-    private static NearEarthObject parseNeoJsonToNeoObject(String inputJsonString) {
+    public static NearEarthObject parseNeoJsonToNeoObject(String inputJsonString) {
         JSONObject neoJsonObject = new JSONObject(inputJsonString);
 
         return new NearEarthObject(
                 neoJsonObject.getInt("id"),
                 neoJsonObject.getString("name"),
-                neoJsonObject.getJSONObject("estimated_diameter").getJSONObject("meters").getFloat("estimated_diameter_min"),
-                neoJsonObject.getJSONObject("estimated_diameter").getJSONObject("meters").getFloat("estimated_diameter_max"),
+                neoJsonObject.getJSONObject("estimated_diameter")
+                        .getJSONObject("meters")
+                        .getFloat("estimated_diameter_min"),
+                neoJsonObject.getJSONObject("estimated_diameter")
+                        .getJSONObject("meters")
+                        .getFloat("estimated_diameter_max"),
                 neoJsonObject.getBoolean("is_potentially_hazardous_asteroid"),
-                neoJsonObject.getJSONArray("close_approach_data").getJSONObject(0).getString("close_approach_date_full"),
-                neoJsonObject.getJSONArray("close_approach_data").getJSONObject(0).getJSONObject("relative_velocity").getFloat("kilometers_per_second"),
-                neoJsonObject.getJSONArray("close_approach_data").getJSONObject(0).getJSONObject("miss_distance").getFloat("kilometers"),
-                neoJsonObject.getJSONArray("close_approach_data").getJSONObject(0).getString("orbiting_body"),
+                neoJsonObject.getJSONArray("close_approach_data")
+                        .getJSONObject(0)
+                        .getString("close_approach_date_full"),
+                neoJsonObject.getJSONArray("close_approach_data")
+                        .getJSONObject(0)
+                        .getJSONObject("relative_velocity")
+                        .getFloat("kilometers_per_second"),
+                neoJsonObject.getJSONArray("close_approach_data")
+                        .getJSONObject(0)
+                        .getJSONObject("miss_distance")
+                        .getFloat("astronomical"),
+                neoJsonObject.getJSONArray("close_approach_data")
+                        .getJSONObject(0)
+                        .getString("orbiting_body"),
                 neoJsonObject.getBoolean("is_sentry_object")
         );
     }
