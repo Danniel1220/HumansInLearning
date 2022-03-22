@@ -16,4 +16,6 @@ public class VehicleRowMapper implements JdbcIO.RowMapper<Vehicle> {
                 resultSet.getInt("yearProduced"),
                 resultSet.getInt("eventTime"));
     }
+
+    // builder factory pattern to do this in a generic way
 }

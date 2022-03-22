@@ -4,16 +4,22 @@ import com.crystal.beam.utils.BeamUtils;
 import com.crystal.dao.Vehicle;
 import com.crystal.mapper.VehicleRowMapper;
 import org.apache.beam.sdk.Pipeline;
+import org.apache.beam.sdk.coders.Coder;
 import org.apache.beam.sdk.coders.SerializableCoder;
 import org.apache.beam.sdk.io.jdbc.JdbcIO;
 import org.apache.beam.sdk.transforms.PTransform;
 import org.apache.beam.sdk.values.PBegin;
 import org.apache.beam.sdk.values.PCollection;
 
+import java.io.Serializable;
+
 public class DatabaseConnector {
+    // public class DatabaseConnector <T extends Serializable> {
     private static final String URL = "jdbc:mysql://localhost:3306/apache";
     private static final String USER = "root";
     private static final String PASSWORD = "rootpassword";
+
+    //private Class<T> t;
 
     public static PCollection<Vehicle> selectAndGetPCollectionOfVehicles(String query, String jobName, int workers) {
         Pipeline pipeline = BeamUtils.createPipeline(jobName, workers);
@@ -25,7 +31,7 @@ public class DatabaseConnector {
                         .withPassword(PASSWORD))
                 .withQuery(query)
                 .withCoder(SerializableCoder.of(Vehicle.class))
-                //.withCoder(SerializableCoder.of(this.inputClass))
+                //.withCoder(SerializableCoder.of(t))
                 .withRowMapper(new VehicleRowMapper());
 
         // jdbc repo on spring data
