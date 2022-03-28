@@ -1,0 +1,21 @@
+[
+  {
+    "vin": "VF1RHN00167062857",
+    "status": "OK",
+    "state": "",
+    "zone": [
+      {
+        "zoneId": "C FR GUYACAT",
+        "level": 1
+      },
+      {
+        "zoneId": "C FR GUYACAT.OUTDOOR_PARKING1",
+        "level": 2
+      },
+      {
+        "zoneId": "C FR GUYACAT.OUTDOOR_PARKING1.SECTION-A",
+        "level": 3
+      }
+    ]
+  }
+]
