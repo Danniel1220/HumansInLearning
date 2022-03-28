@@ -1,20 +1,136 @@
 [
   {
-    "vin": "VF1RHN00167062857",
+    "vin": "V1",
     "status": "OK",
     "state": "",
     "zone": [
       {
-        "zoneId": "C FR GUYACAT",
+        "zoneId": "L1_1",
         "level": 1
       },
       {
-        "zoneId": "C FR GUYACAT.OUTDOOR_PARKING1",
+        "zoneId": "L2_2",
         "level": 2
       },
       {
-        "zoneId": "C FR GUYACAT.OUTDOOR_PARKING1.SECTION-A",
+        "zoneId": "L3_1",
         "level": 3
+      }
+    ]
+  },
+  {
+    "vin": "V2",
+    "status": "OK",
+    "state": "",
+    "zone": [
+      {
+        "zoneId": "L1_1",
+        "level": 1
+      },
+      {
+        "zoneId": "L2_2",
+        "level": 2
+      },
+      {
+        "zoneId": "L3_2",
+        "level": 3
+      }
+    ]
+  },
+  {
+    "vin": "V3",
+    "status": "OK",
+    "state": "",
+    "zone": [
+      {
+        "zoneId": "L1_1",
+        "level": 1
+      }
+    ]
+  },
+  {
+    "vin": "V4",
+    "status": "OK",
+    "state": "",
+    "zone": [
+      {
+        "zoneId": "L1_1",
+        "level": 1
+      }
+    ]
+  },
+  {
+    "vin": "V5",
+    "status": "OK",
+    "state": "",
+    "zone": [
+      {
+        "zoneId": "L1_1",
+        "level": 1
+      },
+      {
+        "zoneId": "L2_2",
+        "level": 2
+      }
+    ]
+  },
+  {
+    "vin": "V6",
+    "status": "OK",
+    "state": "",
+    "zone": [
+      {
+        "zoneId": "L1_1",
+        "level": 1
+      },
+      {
+        "zoneId": "L2_1",
+        "level": 2
+      }
+    ]
+  },
+  {
+    "vin": "V7",
+    "status": "OK",
+    "state": "",
+    "zone": [
+      {
+        "zoneId": "L1_1",
+        "level": 1
+      },
+      {
+        "zoneId": "L2_1",
+        "level": 2
+      }
+    ]
+  },
+  {
+    "vin": "V8",
+    "status": "OK",
+    "state": "",
+    "zone": [
+      {
+        "zoneId": "L1_1",
+        "level": 1
+      },
+      {
+        "zoneId": "L2_2",
+        "level": 2
+      }
+    ]
+  },
+  {
+    "vin": "V9",
+    "status": "OK",
+    "state": "",
+    "zone": [
+      {
+        "zoneId": "L1_1",
+        "level": 1
+      },
+      {
+        "zoneId": "L2_3",
+        "level": 2
       }
     ]
   }
