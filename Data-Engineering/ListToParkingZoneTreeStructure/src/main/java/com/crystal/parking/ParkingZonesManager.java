@@ -55,12 +55,19 @@ public class ParkingZonesManager {
         }
 
         // Fetching the level 1 zone of the vehicle
-        ParkTree zoneToAddVehicleTo = parkingZones.get(getIndexOfParkTreeZoneByName(parkingZones, zonePath.get(0)));
+        ParkTree zoneToAddVehicleTo;
+        int zoneIndex = getIndexOfParkTreeZoneByName(parkingZones, zonePath.get(0));
+        if (zoneIndex >= 0) {
+            zoneToAddVehicleTo = parkingZones.get(zoneIndex);
+        }
+        else {
+            throw new ZoneNotFoundException("Zone " + zonePath.get(0) + " could not be found...");
+        }
 
         // If the zone we are looking for isn't a level 1 zone
         if (zonePath.size() > 1) {
             for (int i = 1; i < zonePath.size(); i++) {
-                int zoneIndex = getIndexOfParkTreeZoneByName(zoneToAddVehicleTo.getSubZones(), zonePath.get(i));
+                zoneIndex = getIndexOfParkTreeZoneByName(zoneToAddVehicleTo.getSubZones(), zonePath.get(i));
                 if (zoneIndex >= 0) {
                     zoneToAddVehicleTo = zoneToAddVehicleTo.getSubZones().get(zoneIndex);
                 }
