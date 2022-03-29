@@ -133,5 +133,20 @@
         "level": 2
       }
     ]
+  },
+  {
+    "vin": "V10",
+    "status": "OK",
+    "state": "",
+    "zone": [
+      {
+        "zoneId": "L1_2",
+        "level": 1
+      },
+      {
+        "zoneId": "L2_3",
+        "level": 2
+      }
+    ]
   }
 ]
